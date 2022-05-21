@@ -1,20 +1,20 @@
-﻿namespace DeviceInfoMAUI;
+﻿using DeviceInfoMAUI.Services;
+
+namespace DeviceInfoMAUI;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
-
-	public MainPage()
-	{
+	
+	IDeviceInformation deviceInfo;
+    public MainPage(IDeviceInformation deviceInformation)
+    {
 		InitializeComponent();
+		deviceInfo = deviceInformation;
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	private async void OnCounterClicked(object sender, EventArgs e)
 	{
-		count++;
-		CounterLabel.Text = $"Current count: {count}";
-
-		SemanticScreenReader.Announce(CounterLabel.Text);
+		await DisplayAlert("Information", $"Package Name:\n {deviceInfo.GetPackageName()} \n \n Build Number: \n {deviceInfo.GetAppVersion()}_build_{deviceInfo.GetApplicationBuildNumber()} ", "OK");
 	}
 }
 

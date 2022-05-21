@@ -1,4 +1,6 @@
-﻿namespace DeviceInfoMAUI;
+﻿using DeviceInfoMAUI.Services;
+
+namespace DeviceInfoMAUI;
 
 public static class MauiProgram
 {
@@ -12,6 +14,8 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 			});
 
+		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddSingleton<IDeviceInformation, DeviceInformation>();
 		return builder.Build();
 	}
 }
